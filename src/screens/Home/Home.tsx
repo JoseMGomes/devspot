@@ -7,21 +7,21 @@ import {
   TouchableOpacity,
   Alert,
   Switch,
-  SafeAreaView,
   Linking,
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from "@react-navigation/native";
-import { styles } from "./styles";
+import { getStyles } from "./styles";
 
 export function Home() {
   const navigation = useNavigation<any>();
   const [isEnabled, setIsEnabled] = useState(false);
 
+  const styles = getStyles(isEnabled);
+
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
-    Alert.alert("Switch pressionado");
   };
-
   const openLink = async (url: string) => {
     const supported = await Linking.canOpenURL(url);
     if (supported) {
@@ -38,7 +38,6 @@ export function Home() {
           <Text style={styles.logoText}>DEV.SPOT</Text>
           <Text style={styles.logoIcon}>✦</Text>
         </View>
-
         <View style={styles.imageWrapper}>
           <View style={styles.imageFrame}>
             <Image
@@ -47,7 +46,6 @@ export function Home() {
             />
           </View>
         </View>
-
         <View style={styles.content}>
           <Text style={styles.title}>
             Eleve seu negócio digital a outro nível
@@ -56,7 +54,6 @@ export function Home() {
               com um desenvolvimento de qualidade!
             </Text>
           </Text>
-
           <Text style={styles.description}>
             Olá! Somos um trio de desenvolvedores da FATEC prontos para
             transformar ideias em interfaces funcionais e sistemas eficientes.
@@ -64,29 +61,32 @@ export function Home() {
 
           <TouchableOpacity
             style={styles.mainButton}
-            onPress={() => navigation.navigate("SobreMim")}
+            onPress={() =>
+              navigation.navigate("SobreMim", { isLightMode: isEnabled })
+            }
           >
             <Text style={styles.buttonText}>Sobre nós</Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             style={styles.outlineButton}
             onPress={() => Alert.alert("Entre em contato")}
           >
             <Text style={styles.outlineButtonText}>Entre em contato!</Text>
           </TouchableOpacity>
-
           <Text style={styles.sectionTitle}>Acesse nossas redes:</Text>
 
           <View style={styles.switchContainer}>
-            <Text style={styles.switchLabel}>Alterar visualização</Text>
+            <Text style={styles.switchLabel}>
+              {isEnabled ? "Modo Claro ativado" : "Modo Escuro ativado"}
+            </Text>
             <Switch
-              trackColor={{ false: "#767577", true: "#00d1ff" }}
+              trackColor={{ false: "#767577", true: "#0088aa" }}
               thumbColor={isEnabled ? "#fff" : "#f4f3f4"}
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
           </View>
+
           <TouchableOpacity
             style={styles.socialButton}
             onPress={() => openLink("https://github.com/JoseMGomes")}
