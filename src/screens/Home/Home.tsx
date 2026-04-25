@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from "@react-navigation/native";
 import { getStyles } from "./styles";
+import { SocialButton } from "../../components/SocialButton";
 
 export function Home() {
   const navigation = useNavigation<any>();
@@ -74,10 +75,10 @@ export function Home() {
             <Text style={styles.outlineButtonText}>Entre em contato!</Text>
           </TouchableOpacity>
           <Text style={styles.sectionTitle}>Acesse nossas redes:</Text>
-
+          
           <View style={styles.switchContainer}>
             <Text style={styles.switchLabel}>
-              {isEnabled ? "Modo Claro ativado" : "Modo Escuro ativado"}
+              {isEnabled ? 'Modo Claro ativado' : 'Modo Escuro ativado'}
             </Text>
             <Switch
               trackColor={{ false: "#767577", true: "#0088aa" }}
@@ -86,25 +87,24 @@ export function Home() {
               value={isEnabled}
             />
           </View>
-
-          <TouchableOpacity
-            style={styles.socialButton}
-            onPress={() => openLink("https://github.com/JoseMGomes")}
-          >
-            <Text style={styles.socialText}>GitHub</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.socialButton}
-            onPress={() => openLink("https://www.linkedin.com/in/josemgomess")}
-          >
-            <Text style={styles.socialText}>Linkedin</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.socialButton}
-            onPress={() => openLink("https://www.instagram.com/gomess.ze/")}
-          >
-            <Text style={styles.socialText}>Instagram</Text>
-          </TouchableOpacity>
+          <SocialButton 
+            title="GitHub" 
+            onPress={() => openLink('https://github.com/JoseMGomes')} 
+            buttonStyle={styles.socialButton} 
+            textStyle={styles.socialText} 
+          />
+          <SocialButton 
+            title="LinkedIn" 
+            onPress={() => openLink('https://www.linkedin.com/in/josemgomess')} 
+            buttonStyle={styles.socialButton} 
+            textStyle={styles.socialText} 
+          />
+          <SocialButton 
+            title="Instagram" 
+            onPress={() => openLink('https://www.instagram.com/gomess.ze/')} 
+            buttonStyle={styles.socialButton} 
+            textStyle={styles.socialText} 
+          />
         </View>
 
         <View style={styles.footer}>
